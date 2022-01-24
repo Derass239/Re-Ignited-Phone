@@ -35,7 +35,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['show', 'zoom', 'coque', 'sonido', 'appelsInfo', 'myPhoneNumber', 'volume', 'tempoHide'])
+    ...mapGetters(['show', 'zoom', 'coque', 'sonido', 'appelsInfo', 'myPhoneNumber', 'volume', 'tempoHide', 'transition'])
   },
   watch: {
     appelsInfo (newValue, oldValue) {

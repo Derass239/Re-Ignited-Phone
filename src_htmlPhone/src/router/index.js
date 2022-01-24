@@ -26,9 +26,11 @@ import TwitterSpashScreen from '@/components/twitter/TwitterSpashScreen'
 import TwitterScreen from '@/components/twitter/TwitterScreen'
 
 import Parametre from '@/components/parametre/Parametre'
-import Bank from '@/components/Bank/Bank'
 import Bourse from '@/components/Bourse/Bourse'
 import Photo from '@/components/Photo/Photo'
+
+import BankSplashScreen from '@/components/Bank/BankSplashScreen'
+import BankScreen from '@/components/Bank/BankScreen'
 
 import App9GAG from '@/components/App9GAG'
 
@@ -74,10 +76,6 @@ export default new Router({
       path: '/bourse',
       name: 'bourse',
       component: Bourse
-    }, {
-      path: '/bank',
-      name: 'bank',
-      component: Bank
     }, {
       path: '/photo',
       name: 'photo',
@@ -133,6 +131,14 @@ export default new Router({
     }, {
       path: '*',
       redirect: '/'
+    }, {
+      path: '/bankSplashScreen',
+      name: 'bank',
+      component: BankSplashScreen
+    }, {
+      path: '/bankScreen',
+      name: 'bank.screen',
+      component: BankScreen
     }
   ]
 })

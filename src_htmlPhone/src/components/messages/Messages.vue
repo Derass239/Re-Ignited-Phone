@@ -253,15 +253,16 @@ export default {
       try {
         this.ignoreControls = true
         let choix = [
-          {id: 1, title: this.IntlString('APP_MESSAGE_SEND_GPS'), icons: 'fa-location-arrow'}
+          {id: 1, title: this.IntlString('APP_MESSAGE_SEND_GPS'), icons: 'fa-location-arrow'},
+          {id: 2, title: this.IntlString('APP_MESSAGE_SEND_DEST'), icons: 'fa-location-arrow'}
         ]
         choix.push({
-          id: 3,
+          id: 4,
           title: this.IntlString('APP_MESSAGE_SEND_GPS_REALTIME'),
           icons: 'fa-map-marked-alt'
         })
         if (this.enableTakePhoto) {
-          choix.push({id: 2, title: this.IntlString('APP_MESSAGE_SEND_PHOTO'), icons: 'fa-picture-o'})
+          choix.push({id: 3, title: this.IntlString('APP_MESSAGE_SEND_PHOTO'), icons: 'fa-picture-o'})
         }
         choix.push({id: -1, title: this.IntlString('CANCEL'), icons: 'fa-undo'})
         const data = await Modal.CreateModal({ choix })
@@ -272,6 +273,12 @@ export default {
           })
         }
         if (data.id === 2) {
+          this.sendMessage({
+            phoneNumber: this.phoneNumber,
+            message: '%dest%'
+          })
+        }
+        if (data.id === 3) {
           const { url } = await this.$phoneAPI.takePhoto()
           if (url !== null && url !== undefined) {
             this.sendMessage({
@@ -280,7 +287,7 @@ export default {
             })
           }
         }
-        if (data.id === 3) {
+        if (data.id === 4) {
           /**
             Real-time GPS time selection
           */

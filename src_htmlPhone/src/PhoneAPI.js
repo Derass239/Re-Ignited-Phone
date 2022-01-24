@@ -276,6 +276,31 @@ class PhoneAPI {
     this.acceptCall(data.infoCall)
   }
 
+  // === Garage
+  garage_getCars () {
+    this.post('')
+  }
+
+  // === Bank
+  // async GetBankData () {
+  //  const transactions = await this.post('GetBankData')
+  //  store.commit('SET_BANK_TRANSACTION', transactions)
+  // }
+
+  GetBankData () {
+    this.post('bank_getTransaction')
+    this.post('bank_getBills')
+  }
+  onbank_transaction (data) {
+    store.commit('SET_BANK_TRANSACTION', data)
+  }
+  onbank_bills (data) {
+    store.commit('SET_BANK_BILLS', data)
+  }
+  async payBill (id) {
+    return this.post('bank_payBill', {id})
+  }
+
   // === Twitter
   twitter_login (username, password) {
     this.post('twitter_login', {username, password})
