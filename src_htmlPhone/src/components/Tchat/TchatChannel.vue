@@ -46,59 +46,45 @@ export default {
     },
     onUp () {
       if (this.ignoreControls === true) return
-      this.currentSelect = this.currentSelect === 0 ? 0 : this.currentSelect - 1
+      this.currentSelect = this.currentSelect === 0 ? this.tchatChannels.length - 1 : this.currentSelect - 1
       this.scrollIntoViewIfNeeded()
     },
     onDown () {
       if (this.ignoreControls === true) return
-      this.currentSelect = this.currentSelect === this.tchatChannels.length - 1 ? this.currentSelect : this.currentSelect + 1
+      this.currentSelect = this.currentSelect === this.tchatChannels.length - 1 ? 0 : this.currentSelect + 1
       this.scrollIntoViewIfNeeded()
     },
     async onRight () {
-      if (this.ignoreControls === true) return
-      this.ignoreControls = true
-      let choix = [
-        {id: 1, title: this.IntlString('APP_DARKTCHAT_NEW_CHANNEL'), icons: 'fa-plus', color: 'green'}, /** New Channel Option Color */
-        {id: 2, title: this.IntlString('APP_DARKTCHAT_DELETE_CHANNEL'), icons: 'fa-minus', color: 'red'}, /** DeleteChannel Option Color */
-        {id: 3, title: this.IntlString('APP_DARKTCHAT_CANCEL'), icons: 'fa-undo'}
-      ]
-      if (this.tchatChannels.length === 0) {
-        choix.splice(1, 1)
-      }
-      const rep = await Modal.CreateModal({ choix })
-      this.ignoreControls = false
-      switch (rep.id) {
-        case 1:
-          this.addChannelOption()
-          break
-        case 2:
-          this.removeChannelOption()
-          break
-        case 3 :
+      try {
+        this.ignoreControls = true
+        let choix = [
+          {id: 1, title: this.IntlString('APP_DARKTCHAT_NEW_CHANNEL'), icons: 'fa-plus', color: 'green'}, /** New Channel Option Color */
+          {id: 2, title: this.IntlString('APP_DARKTCHAT_DELETE_CHANNEL'), icons: 'fa-minus', color: 'red'}, /** DeleteChannel Option Color */
+          {id: 3, title: this.IntlString('APP_DARKTCHAT_CANCEL'), icons: 'fa-undo'}
+        ]
+        if (this.tchatChannels.length === 0) {
+          choix.splice(1, 1)
+        }
+        const rep = await Modal.CreateModal({ choix })
+        switch (rep.id) {
+          case 1:
+            this.addChannelOption()
+            break
+          case 2:
+            this.removeChannelOption()
+            break
+          case 3 :
+        }
+      } catch (e) {
+      } finally {
+        this.ignoreControls = false
+        this.currentSelect = -1
       }
     },
     async onEnter () {
       if (this.ignoreControls === true) return
-      this.ignoreControls = true
-      let choix = [
-        {id: 1, title: this.IntlString('APP_DARKTCHAT_NEW_CHANNEL'), icons: 'fa-plus', color: 'green'}, /** New Channel Option Color */
-        {id: 2, title: this.IntlString('APP_DARKTCHAT_DELETE_CHANNEL'), icons: 'fa-minus', color: 'red'}, /** DeleteChannel Option Color */
-        {id: 3, title: this.IntlString('APP_DARKTCHAT_CANCEL'), icons: 'fa-undo'}
-      ]
-      if (this.tchatChannels.length === 0) {
-        choix.splice(1, 1)
-      }
-      const rep = await Modal.CreateModal({ choix })
-      this.ignoreControls = false
-      switch (rep.id) {
-        case 1:
-          this.addChannelOption()
-          break
-        case 2:
-          this.removeChannelOption()
-          break
-        case 3 :
-      }
+      const channel = this.tchatChannels[this.currentSelect].channel
+      this.showChannel(channel)
     },
     showChannel (channel) {
       this.$router.push({ name: 'tchat.channel.show', params: { channel } })

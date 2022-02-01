@@ -67,12 +67,20 @@ export default {
     },
     onUp () {
       if (this.ignoreControls === true) return
-      this.selectIndex = Math.max(0, this.selectIndex - 1)
+      if (this.selectIndex === -1) {
+        this.selectIndex = this.historique.length - 1
+      } else {
+        this.selectIndex = this.selectIndex === 0 ? this.historique.length - 1 : this.selectIndex - 1
+      }
       this.scrollIntoViewIfNeeded()
     },
     onDown () {
       if (this.ignoreControls === true) return
-      this.selectIndex = Math.min(this.historique.length - 1, this.selectIndex + 1)
+      if (this.selectIndex === -1) {
+        this.selectIndex = this.historique.length - 1
+      } else {
+        this.selectIndex = this.selectIndex === this.historique.length - 1 ? 0 : this.selectIndex + 1
+      }
       this.scrollIntoViewIfNeeded()
     },
     async selectItem (item) {

@@ -186,7 +186,7 @@ export default {
       }
     },
     formatTime (time) {
-      return dayjs(time).format('HH:mm A on DD/MM')
+      return dayjs(time).format('DD/MM à HH:mm')
     }
   },
   created () {

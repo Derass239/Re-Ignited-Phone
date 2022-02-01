@@ -16,8 +16,8 @@ const actions = {
   GetBankData () {
     PhoneAPI.GetBankData()
   },
-  payBill ({ commit }, {id}) {
-    PhoneAPI.payBill(id)
+  PayBill ({ commit }, { bill }) {
+    PhoneAPI.PayBill(bill)
   }
 }
 
@@ -33,6 +33,14 @@ const mutations = {
     state.bills.sort(function (x, y) {
       return y.date - x.date
     })
+  },
+  ADD_TRANSACTION (state, transaction) {
+    state.transactions.unshift(transaction)
+  },
+  REMOVE_BILL (state, billId) {
+    const index = state.bills.findIndex(v => v.id === billId)
+    console.log(index)
+    state.bills.splice(index, 1)
   }
 }
 

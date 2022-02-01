@@ -150,12 +150,12 @@ export default {
     },
     onUp: function () {
       if (this.ignoreControls === true) return
-      this.currentSelect = this.currentSelect === 0 ? 0 : this.currentSelect - 1
+      this.currentSelect = this.currentSelect === 0 ? this.paramList.length - 1 : this.currentSelect - 1
       this.scrollIntoViewIfNeeded()
     },
     onDown: function () {
       if (this.ignoreControls === true) return
-      this.currentSelect = this.currentSelect === this.paramList.length - 1 ? this.currentSelect : this.currentSelect + 1
+      this.currentSelect = this.currentSelect === this.paramList.length - 1 ? 0 : this.currentSelect + 1
       this.scrollIntoViewIfNeeded()
     },
     onRight () {

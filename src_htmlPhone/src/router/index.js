@@ -33,6 +33,7 @@ import BankSplashScreen from '@/components/Bank/BankSplashScreen'
 import BankScreen from '@/components/Bank/BankScreen'
 
 import App9GAG from '@/components/App9GAG'
+import Garage from '@/components/Garage/Garage'
 
 Vue.use(Router)
 
@@ -72,70 +73,92 @@ export default new Router({
       path: '/messages/:number/:display',
       name: 'messages.view',
       component: Messages
-    }, {
+    },
+    {
       path: '/bourse',
       name: 'bourse',
       component: Bourse
-    }, {
+    },
+    {
       path: '/photo',
       name: 'photo',
       component: Photo
-    }, {
+    },
+    {
       path: '/paramtre',
       name: 'parametre',
       component: Parametre
-    }, {
+    },
+    {
       path: '/appels',
       name: 'appels',
       component: Appels
-    }, {
+    },
+    {
       path: '/appelsactive',
       name: 'appels.active',
       component: AppelsActive
-    }, {
+    },
+    {
       path: '/appelsNumber',
       name: 'appels.number',
       component: AppelsNumber
-    }, {
+    },
+    {
       path: '/tchatsplash',
       name: 'tchat',
       component: TchatSplashScreen
-    }, {
+    },
+    {
       path: '/tchat',
       name: 'tchat.channel',
       component: TchatChannel
-    }, {
+    },
+    {
       path: '/tchat/:channel',
       name: 'tchat.channel.show',
       component: TchatMessage
-    }, {
+    },
+    {
       path: '/notes',
       name: 'notes',
       component: NotesChannel
-    }, {
+    },
+    {
       path: '/notes/:channel',
       name: 'notes.channel.show',
       component: NotesMessage
-    }, {
+    },
+    {
       path: '/twitter/splash',
       name: 'twitter.splash',
       component: TwitterSpashScreen
-    }, {
+    },
+    {
       path: '/twitter/view',
       name: 'twitter.screen',
       component: TwitterScreen
-    }, {
+    },
+    {
       path: '/9gag',
       name: '9gag',
       component: App9GAG
-    }, {
+    },
+    {
+      path: '/garage',
+      name: 'garage',
+      component: Garage
+    },
+    {
       path: '*',
       redirect: '/'
-    }, {
+    },
+    {
       path: '/bankSplashScreen',
       name: 'bank',
       component: BankSplashScreen
-    }, {
+    },
+    {
       path: '/bankScreen',
       name: 'bank.screen',
       component: BankScreen
