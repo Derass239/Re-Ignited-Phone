@@ -82,7 +82,7 @@ export default {
     Slide (sens) {
       clearInterval(this.Slider)
       if (sens === 1) {
-        if (this.TopTransactions < 170) this.TopTransactions += 50
+        if (this.TopTransactions < 156) this.TopTransactions += 50
       } else {
         if (this.TopTransactions > this.MaxSlide - 50) this.TopTransactions -= 50
       }
@@ -147,13 +147,7 @@ export default {
     this.$bus.$on('keyUpArrowDown', this.StartSlideDown)
     this.$bus.$on('EndPressArrowUp', this.StopSlide)
     this.$bus.$on('EndPressArrowDown', this.StopSlide)
-    this.TopTransactions = 750
-    setTimeout(function (app) {
-      app.TopTransactions = 170
-      setTimeout(function (app) {
-        app.ready = true
-      }, 100, app)
-    }, 100, this)
+    this.TopTransactions = 156
   },
   watch: {
     transactions () {
@@ -245,7 +239,6 @@ h1 {
   position: absolute;
   top: 560px;
   width: 100%;
-  top: -750px;
   z-index: 10;
   transition: 0.1s all linear;
 }

@@ -67,7 +67,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['GetBankData']),
+    ...mapActions(['GetBankData', 'PayBill']),
     resetScroll () {
       this.$nextTick(() => {
         let elem = document.querySelector('#bills_list')
@@ -83,12 +83,12 @@ export default {
         }
       })
     },
-    onUp: function () {
+    onUp () {
       if (this.ignoreControls === true) return
       if (this.selectBill === -1) {
         this.selectBill = this.Operations.length - 1
       } else {
-        this.selectBill = this.selectBill === 0 ? 0 : this.selectBill - 1
+        this.selectBill = this.selectBill === 0 ? this.Operations.length - 1 : this.selectBill - 1
       }
       this.scrollIntoViewIfNeeded()
     },
@@ -97,7 +97,7 @@ export default {
       if (this.selectBill === -1) {
         this.selectBill = this.Operations.length - 1
       } else {
-        this.selectBill = this.selectBill === this.Operations.length - 1 ? this.selectBill : this.selectBill + 1
+        this.selectBill = this.selectBill === this.Operations.length - 1 ? 0 : this.selectBill + 1
       }
       this.scrollIntoViewIfNeeded()
     },
@@ -105,16 +105,10 @@ export default {
       if (this.ignoreControls === true) return
       if (this.selectBill !== -1) {
         this.onActionMessage(this.Operations[this.selectBill])
-        console.log(this.Operations[this.selectBill])
       }
     },
     onBackspace () {
-      if (this.ignoreControls === true) return
-      if (this.selectMessage !== -1) {
-        this.selectMessage = -1
-      } else {
-        this.quit()
-      }
+      this.$router.push({ name: 'menu' })
     },
     bankAmontFormat (value) {
       return Intl.NumberFormat().format(value)
@@ -156,6 +150,7 @@ export default {
     },
     async onActionMessage (bill) {
       try {
+        this.ignoreControls = true
         let choix = [{
           id: 'pay',
           title: this.IntlString('APP_BANK_PAY_BILL'),
@@ -168,14 +163,14 @@ export default {
           id: -1,
           title: ' '
         }]
-        this.ignoreControls = true
         const data = await Modal.CreateModal({choix})
         if (data.id === 'pay') {
-          this.payBill({
-            id: bill.id
+          this.PayBill({
+            bill: bill
           })
         }
       } catch (e) {
+        console.log(e)
       } finally {
         this.ignoreControls = false
         this.selectBill = -1
@@ -226,7 +221,7 @@ h1 {
 }
 
 #bills_list{
-    height: calc(100% - 34px - 26px);
+    height: 450px;
     overflow-y: auto;
     padding-bottom: 8px;
 }

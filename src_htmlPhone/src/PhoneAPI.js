@@ -278,15 +278,16 @@ class PhoneAPI {
 
   // === Garage
   garage_getCars () {
-    this.post('')
+    this.post('garage_fetchCars')
+  }
+  ongarage_cars (data) {
+    store.commit('SET_GARAGE_CARS', data)
+  }
+  async setGaragePos (garageName) {
+    return this.post('garage_setGPS', garageName)
   }
 
   // === Bank
-  // async GetBankData () {
-  //  const transactions = await this.post('GetBankData')
-  //  store.commit('SET_BANK_TRANSACTION', transactions)
-  // }
-
   GetBankData () {
     this.post('bank_getTransaction')
     this.post('bank_getBills')
@@ -297,8 +298,30 @@ class PhoneAPI {
   onbank_bills (data) {
     store.commit('SET_BANK_BILLS', data)
   }
-  async payBill (id) {
-    return this.post('bank_payBill', {id})
+  async PayBill (bill) {
+    return this.post('bank_payBill', {bill})
+  }
+  onnewTransaction (data) {
+    store.commit('ADD_TRANSACTION', data.transaction)
+  }
+  onremoveBill (data) {
+    store.commit('REMOVE_BILL', data.billId)
+  }
+  onbank_showError (data) {
+    Vue.notify({
+      title: store.getters.IntlString(data.title, ''),
+      message: store.getters.IntlString(data.message),
+      icon: '',
+      backgroundColor: '#ff0000'
+    })
+  }
+  onbank_showSuccess (data) {
+    Vue.notify({
+      title: store.getters.IntlString(data.title, ''),
+      message: store.getters.IntlString(data.message),
+      icon: '',
+      backgroundColor: '#00cd2a'
+    })
   }
 
   // === Twitter
